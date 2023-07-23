@@ -1,0 +1,150 @@
+.python-lesson {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f8f8;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .lesson-section {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .lesson-heading {
+    font-size: 36px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .lesson {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .lesson-example {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: left;
+    border-left: 3px solid #007bff;
+    padding-left: 10px;
+  }
+  
+  .exercise-section {
+    text-align: center;
+  }
+  
+  .exercise-heading {
+    font-size: 32px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .exercise-instruction {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 10px;
+    /* text-transform: uppercase; */
+    letter-spacing: 1px;
+  }
+  
+  .show-answer-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .correct-answer {
+    margin-top: 10px;
+    padding: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .next-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .exercise-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .exercise-input {
+    width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .exercise-submit {
+    margin-top: 10px;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .exercise-submit:hover {
+    background-color: #0056b3;
+  }
+  
+  .exercise-result {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    background-color: #f2f2f2;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Additional styles for enhanced visual appeal */
+  
+  .python-lesson {
+    background-image: linear-gradient(to bottom, #f8f8f8, #eaeaea);
+  }
+  
+  .lesson-heading {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .lesson-example {
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+  }
+  
