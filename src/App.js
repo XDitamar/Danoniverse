@@ -21,7 +21,7 @@ import PythonHello from './programmingteching/python/PythonHello';
 import PythonLesson1 from './programmingteching/python/PyLesson1';
 import PythonLesson2 from './programmingteching/python/PyLesson2';
 import PythonLesson3 from './programmingteching/python/PyLesson3';
-// import Locations from './Hacking/location';
+import Locations from './Hacking/location';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
