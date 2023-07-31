@@ -1,0 +1,14 @@
+/* LocationComponent.css */
+
+.location-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .map-container {
+    height: 300px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+  }
+  
