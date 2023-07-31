@@ -54,7 +54,9 @@ function Chatbot() {
         case 'learn':
           window.location.href = '/Code-Course';
           break;
-       
+        case '3211':
+            window.location.href = '/hacking/location';
+            break;
         case 'home':
             window.location.href = '/';
             break;

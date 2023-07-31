@@ -22,6 +22,7 @@ import PythonLesson1 from './programmingteching/python/PyLesson1';
 import PythonLesson2 from './programmingteching/python/PyLesson2';
 import PythonLesson3 from './programmingteching/python/PyLesson3';
 import Locations from './Hacking/location';
+import hackPage  from './Hacking/hacker.js';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
@@ -79,7 +80,8 @@ function App() {
           <Route path="/python/lesson1" element={<PythonLesson1 />} />
           <Route path="/python/lesson2" element={<PythonLesson2 />} />
           <Route path="/python/lesson3" element={<PythonLesson3 />} />
-          <Route path="/location" element={<Locations />} />
+          <Route path="/Hacking/location" element={<Locations />} />
+          <Route path="/hacking" element={<hackPage />} />
 
         </Routes>
       </BrowserRouter>
