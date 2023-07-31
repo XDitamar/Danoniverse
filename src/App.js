@@ -79,7 +79,7 @@ function App() {
           <Route path="/python/lesson1" element={<PythonLesson1 />} />
           <Route path="/python/lesson2" element={<PythonLesson2 />} />
           <Route path="/python/lesson3" element={<PythonLesson3 />} />
-          {/* <Route path="/hacking/location" element={<Locations />} /> */}
+          <Route path="/location" element={<Locations />} />
 
         </Routes>
       </BrowserRouter>
