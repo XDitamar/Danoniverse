@@ -3,18 +3,29 @@ import React, { useEffect, useState } from "react";
 const LocationComponent = () => {
   const [locationData, setLocationData] = useState(null);
   const [ipData, setIpData] = useState(null);
+  const [permissionDenied, setPermissionDenied] = useState(false);
 
   useEffect(() => {
-    getLocation();
+    checkLocationPermission();
     fetchIpData();
   }, []);
 
-  const getLocation = () => {
+  const checkLocationPermission = () => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(showPosition, showError);
+      navigator.permissions.query({ name: "geolocation" }).then((result) => {
+        if (result.state === "denied") {
+          setPermissionDenied(true);
+        } else {
+          getLocation();
+        }
+      });
     } else {
       setLocationData("Geolocation is not supported by this browser.");
     }
+  };
+
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition(showPosition, showError);
   };
 
   const showPosition = (position) => {
@@ -23,7 +34,7 @@ const LocationComponent = () => {
   };
 
   const showError = (error) => {
-    setLocationData(`Error: ${error.message}`);
+    setPermissionDenied(true);
   };
 
   const fetchIpData = async () => {
@@ -54,36 +65,30 @@ const LocationComponent = () => {
 
   return (
     <div>
-      <div>
-        <h3>Location Data:</h3>
-        {latitude && <p>Latitude: {latitude}</p>}
-        {longitude && <p>Longitude: {longitude}</p>}
-        {latitude && longitude && (
-          <iframe
-            title="Final Location"
-            width="600"
-            height="450"
-            frameborder="0"
-            scrolling="no"
-            marginheight="0"
-            marginwidth="0"
-            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3431.4726904955385!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDE2JzU2LjgiTiAzNcKwMzEnMTQuMyJF!5e0!3m2!1sen!2sin!4v1627854170249!5m2!1sen!2sin`}
-          ></iframe>
-        )}
-        {timestamp && <p>Timestamp: {timestamp}</p>}
-        {!latitude && !longitude && !timestamp && <p>Loading location data...</p>}
-      </div>
+      {permissionDenied ? (
+        <p>Location access is denied. Please enable location services to use this feature.</p>
+      ) : (
+        <div>
+          <div>
+            <h3>Location Data:</h3>
+            {latitude && <p>Latitude: {latitude}</p>}
+            {longitude && <p>Longitude: {longitude}</p>}
+            {timestamp && <p>Timestamp: {timestamp}</p>}
+            {!latitude && !longitude && !timestamp && <p>Loading location data...</p>}
+          </div>
 
-      <div>
-        <h3>User System Information:</h3>
-        <p>Operating System: {getOperatingSystem()}</p>
-        <p>Browser: {getBrowserInfo()}</p>
-      </div>
+          <div>
+            <h3>User System Information:</h3>
+            <p>Operating System: {getOperatingSystem()}</p>
+            <p>Browser: {getBrowserInfo()}</p>
+          </div>
 
-      <div>
-        <h3>IP Data:</h3>
-        {ipData ? <p>IP Address: {ipData.ip}</p> : <p>Loading IP address...</p>}
-      </div>
+          <div>
+            <h3>IP Data:</h3>
+            {ipData ? <p>IP Address: {ipData.ip}</p> : <p>Loading IP address...</p>}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
