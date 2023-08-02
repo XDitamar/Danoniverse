@@ -1,94 +1,130 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import './SignupForm.css'; // Import the CSS file for styling
+import { NavLink, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
+import { getDatabase, ref, set } from "firebase/database";
+import { collection, addDoc } from "firebase/firestore";
+import { v4 } from 'uuid';
+import { doc, setDoc } from 'firebase/firestore';
 
-const SignupForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+import { db } from '../firebaseConfig';
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+const Signup = () => {
+    const navigate = useNavigate();
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('');
+    const [user, setUser] = useState('');
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
+    const postRef = collection(db, "posts"); // Firestore collection reference
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                console.log(user);
+                uploadStats(user.uid); // Pass the user's UID to the function
 
-    // Create an object with the user data
-    const userData = {
-      username: username,
-      password: password,
-      email: email,
-    };
-
-    try {
-      // Send the user data to the backend server
-      const response = await axios.post('/api/signup', userData);
-      console.log(response.data); // Handle the response from the server
-
-      // Perform additional actions after successful signup, such as redirecting to a new page
-      // You can use a router library like React Router to handle the redirection
-      // Example: history.push('/dashboard');
-    } catch (error) {
-      console.error('Error:', error);
-      setError('Error signing up. Please try again.');
+                navigate("/login")
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+                // ..
+            });
     }
 
-    // Reset the form fields
-    setUsername('');
-    setPassword('');
-    setEmail('');
-  };
+    const uploadStats = async () => {
+      if (user) {
+        const dataRef = doc(db, "data", user); // Reference to the document with the username as the ID
+        await setDoc(dataRef, {
+          username: user,
+          email: email,
+          password: password,
+          // Add other properties here if needed
+        })
+        .then(() => {
+          console.log("Data uploaded successfully!");
+        })
+        .catch((error) => {
+          console.error("Error uploading data:", error);
+        });
+      }
+    }
+    
+    
+    return (
+        <main >
+            <section>
+                <div>
+                    <div>
+                        <h1> FocusApp </h1>
+                        <form>
+                            <div>
+                                <label htmlFor="username">
+                                    User name
+                                </label>
+                                <input
+                                    type="text"
+                                    label="User name"
+                                    value={user}
+                                    onChange={(e) => setUser(e.target.value)}
+                                    required
+                                    placeholder="User name"
+                                />
+                            </div>
 
-  return (
-    <form className="signup-form" onSubmit={handleSubmit}>
-      <h2>Create an Account</h2>
-      {error && <div className="error">{error}</div>}
-      <div className="form-group">
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={handleUsernameChange}
-          placeholder="Enter your username"
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-          placeholder="Enter your password"
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="Enter your email"
-          required
-        />
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
-  );
-};
+                            <div>
+                                <label htmlFor="email-address">
+                                    Email address
+                                </label>
+                                <input
+                                    type="email"
+                                    label="Email address"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    placeholder="Email address"
+                                />
+                            </div>
 
-export default SignupForm;
+                            <div>
+                                <label htmlFor="password">
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    label="Create password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    placeholder="Password"
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                onClick={onSubmit}
+                            >
+                                Sign up
+                            </button>
+                        </form>
+
+                        <p>
+                            Already have an account?{' '}
+                            <NavLink to="/login" >
+                                Sign in
+                            </NavLink>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    )
+}
+
+export default Signup;

@@ -46,7 +46,7 @@ function App() {
         />
         <Chatbot /> {/* Add the Chatbot component here */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} />
           <Route
             path="/login"
             element={
@@ -56,16 +56,22 @@ function App() {
                 setPassword={setPassword}
               />
             }
-          />
+          /> */}
           <Route
             path="/logout"
             element={<Logout setIsLoggedIn={setIsLoggedIn} />}
           />
-          <Route
+          {/* <Route
             path="/signup"
             element={<Signup setIsLoggedIn={setIsLoggedIn} />}
-          />
+          /> */}
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+
           <Route path="/user-settings" element={<UserSettings />} />
+          <Route path="/login" element={<Login />} />
+
           <Route path="/AI/WeatherAI" element={<Weather />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/Translator" element={<Translate />} />

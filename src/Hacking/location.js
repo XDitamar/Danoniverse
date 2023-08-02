@@ -103,6 +103,7 @@ const LocationComponent = () => {
         <p>Location access is denied. Please enable location services to use this feature.</p>
       ) : (
         <div>
+          
           <div>
             <h3>Location Data:</h3>
             {latitude && <p>Latitude: {latitude}</p>}
