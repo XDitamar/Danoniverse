@@ -57,6 +57,35 @@ function WeatherAI() {
       })
       .catch(console.log);
   };
+  useEffect(() => {
+    // Request geolocation permission on component mount
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+
+        const currentWeatherFetch = fetch(
+          `${WEATHER_API_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=metric`
+        );
+        const forecastFetch = fetch(
+          `${WEATHER_API_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=metric`
+        );
+        Promise.all([currentWeatherFetch, forecastFetch])
+          .then(async (response) => {
+            const weatherResponse = await response[0].json();
+            const forecastResponse = await response[1].json();
+
+            setCurrentWeather({ city: "Your Location", ...weatherResponse });
+            setForecast({ city: "Your Location", ...forecastResponse });
+          })
+          .catch(console.log);
+      },
+      (error) => {
+        console.error("Error getting geolocation:", error);
+        // Handle the case when the user denies the geolocation permission or there's an error
+        // For example, you could display an error message or show weather data for a default location.
+      }
+    );
+  }, []);
 
   useEffect(() => {
     if (currentWeather && currentWeather.weather && currentWeather.weather[0].icon) {
