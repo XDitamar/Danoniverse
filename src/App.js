@@ -23,6 +23,7 @@ import PythonLesson2 from './programmingteching/python/PyLesson2';
 import PythonLesson3 from './programmingteching/python/PyLesson3';
 import Locations from './Hacking/location';
 import hackPage  from './Hacking/hacker.js';
+import reg from './demo-regester/Register'
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
@@ -88,6 +89,7 @@ function App() {
           <Route path="/python/lesson3" element={<PythonLesson3 />} />
           <Route path="/Hacking/location" element={<Locations />} />
           <Route path="/hacking" element={<hackPage />} />
+          <Route path="/reg" element={<reg />} />
 
         </Routes>
       </BrowserRouter>

@@ -26,6 +26,7 @@
     "react-scripts": "^5.0.1",
     "react-select-async-paginate": "^0.7.3",
     "redux": "^4.2.1",
+    "run-script": "^0.1.1",
     "stream-browserify": "^3.0.0",
     "url": "^0.11.1",
     "web-vitals": "^2.1.4"
